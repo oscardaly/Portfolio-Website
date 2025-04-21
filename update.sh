@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Script Vars
-REPO_URL="https://github.com/leerob/next-self-host.git"
+REPO_URL="https://github.com/oscardaly/Portfolio-Website.git"
 APP_DIR=~/myapp
 
 # Pull the latest changes from the Git repository
@@ -28,4 +28,3 @@ fi
 
 # Output final message
 echo "Update complete. Your Next.js app has been deployed with the latest changes."
-
