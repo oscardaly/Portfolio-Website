@@ -2,16 +2,6 @@
 
 This repo shows how to deploy a Next.js app and a PostgreSQL database on a Ubuntu Linux server using Docker and Nginx. It showcases using several features of Next.js like caching, ISR, environment variables, and more.
 
-[**📹 Watch the tutorial (45m)**](https://www.youtube.com/watch?v=sIVL4JMqRfc)
-
-[![Self Hosting Video Thumbnail](https://img.youtube.com/vi/sIVL4JMqRfc/0.jpg)](https://www.youtube.com/watch?v=sIVL4JMqRfc)
-
-## Prerequisites
-
-1. Purchase a domain name
-2. Purchase a Linux Ubuntu server (e.g. [droplet](https://www.digitalocean.com/products/droplets))
-3. Create an `A` DNS record pointing to your server IPv4 address
-
 ## Quickstart
 
 1. **SSH into your server**:
