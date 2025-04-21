@@ -1,16 +1,16 @@
 #!/bin/bash
 
 # Env Vars
-POSTGRES_USER="myuser"
-POSTGRES_PASSWORD=$(openssl rand -base64 12)  # Generate a random 12-character password
-POSTGRES_DB="mydatabase"
-SECRET_KEY="my-secret" # for the demo app
-NEXT_PUBLIC_SAFE_KEY="safe-key" # for the demo app
-DOMAIN_NAME="oscardaly.tech" # replace with your own
-EMAIL="oscardaly4@gmail.com" # replace with your own
+POSTGRES_USER="oscardaly"
+POSTGRES_PASSWORD=$(openssl rand -base64 12) 
+POSTGRES_DB="portfolio-database"
+SECRET_KEY="my-secret" 
+NEXT_PUBLIC_SAFE_KEY="safe-key" 
+DOMAIN_NAME="oscardaly.tech" 
+EMAIL="oscardaly4@gmail.com" 
 
 # Script Vars
-REPO_URL="https://github.com/leerob/next-self-host.git"
+REPO_URL="https://github.com/oscardaly/Portfolio-Website.git"
 APP_DIR=~/myapp
 SWAP_SIZE="1G"  # Swap size of 1GB
 
