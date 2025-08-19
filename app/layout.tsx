@@ -1,21 +1,21 @@
-import "./globals.css"
+import "./globals.css";
 
-import { site } from "@/config"
+import { site } from "@/config";
 
-import { Footer } from "@/components/footer"
-import type { Metadata } from "next"
-import { Geist, Geist_Mono } from "next/font/google"
-import { Nav } from "@/components/nav"
+import { Footer } from "@/components/footer";
+import type { Metadata } from "next";
+import { Geist, Geist_Mono } from "next/font/google";
+import { Nav } from "@/components/nav";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
-})
+});
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
-})
+});
 
 export const metadata: Metadata = {
   title: {
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     {
       name: site.name,
       url: site.url,
-    }
+    },
   ],
   creator: site.name,
   openGraph: {
@@ -37,14 +37,14 @@ export const metadata: Metadata = {
     url: site.url,
     title: site.name,
     description: site.description,
-    siteName: site.name
-  }
-}
+    siteName: site.name,
+  },
+};
 
 const RootLayout = ({
   children,
 }: Readonly<{
-  children: React.ReactNode
+  children: React.ReactNode;
 }>) => {
   return (
     <html lang="en" suppressHydrationWarning>
@@ -52,13 +52,11 @@ const RootLayout = ({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Nav />
-        <main>
-          {children}
-        </main>
+        <main>{children}</main>
         <Footer />
       </body>
     </html>
-  )
-}
+  );
+};
 
-export default RootLayout
+export default RootLayout;

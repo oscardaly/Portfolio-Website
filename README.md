@@ -1,6 +1,7 @@
 <p><a href="https://www.npmjs.com/package/create-next-tw-app"><img style='border-radius: 12px;filter: drop-shadow(0px 9px 10px #888888);' src="https://repository-images.githubusercontent.com/906940804/487f770a-319b-4285-a62c-7193bfd7dd49" alt="Create next tw app" /></a></p>
 
 [![npm](https://d25lcipzij17d.cloudfront.net/badge.svg?id=js&r=r&ts=1683906897&type=6e&v=0.1.0&x2=0)](https://www.npmjs.com/package/create-next-tw-app)
+
 # Nextv15 Tailwindv4 Starter
 
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app) and configured with Tailwind CSS v4. It's a great starting point for building an app or for anyone who wants to learn how to use Tailwind CSS v4.
