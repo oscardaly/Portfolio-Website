@@ -31,7 +31,7 @@ const HomePage: FC = () => {
                 Oscar Daly
               </h1>
               <p className="mt-8 text-lg font-medium text-pretty text-gray-500 sm:text-xl/8">
-                I'm a software engineer with experience across many technologies
+                I&#39;m a software engineer with experience across many technologies
                 and processes. I love learning, working with others, and seeing
                 the impact products we create can have on users.
               </p>
@@ -106,7 +106,7 @@ const HomePage: FC = () => {
                     href="/blogs/a-dummys-guide-to-leading-teams"
                     className="button"
                   >
-                    A dummy's guide to leading teams.
+                    A dummy&#39;s guide to leading teams.
                   </Link>
                 </Button>
               </li>

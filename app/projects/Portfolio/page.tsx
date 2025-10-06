@@ -16,7 +16,7 @@ const Portfolio = () => {
       </ul>
       <p>
         This project is a Next.js personal portfolio website for Oscar Daly.
-        It's built using the App Router structure, styled with Tailwind CSS and
+        It&#39;s built using the App Router structure, styled with Tailwind CSS and
         Shadcn/ui, and designed to be deployed using Docker containers managed
         by Docker Compose, with Nginx acting as a reverse proxy and handling SSL
         via Certbot.

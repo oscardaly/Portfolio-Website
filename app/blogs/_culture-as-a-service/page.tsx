@@ -23,7 +23,7 @@ const Page: NextPage = () => {
         </li>
         <li>
           Remote first isn’t just for parents - there was a lot of discussion
-          about how being remote-first doesn't just mean that people with
+          about how being remote-first doesn&#39;t just mean that people with
           families and kids are more likely to be happy, but it also means that
           we’re able to hire from a much larger more diverse group of people for
           example, as the company will be more accessible for people with a

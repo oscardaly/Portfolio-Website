@@ -151,7 +151,7 @@ const PartnerForGood = () => {
         integrated accessibility checks directly into my development process. I
         used the eslint-plugin-jsx-a11y package which is built into Next.js
         (NextJs, 2025a). This tool automatically flags potential accessibility
-        problems while I'm coding, for example, missing alt text for images,
+        problems while I&#39;m coding, for example, missing alt text for images,
         incorrect aria attributes, or form inputs without proper labels. This
         helped me catch and fix issues early on. A key part of making the
         application accessible was using semantic HTML elements correctly (like
