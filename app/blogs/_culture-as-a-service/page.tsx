@@ -2,7 +2,7 @@ import { NextPage } from "next";
 
 const Page: NextPage = () => {
   return (
-    <div>
+    <div max-w-3xl mx-auto px-4 py-8>
       <h1>Culture as a Service</h1>
       <p>
         On Thursday 26th I was invited to speak on the panel of the first-ever

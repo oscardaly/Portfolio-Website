@@ -51,9 +51,7 @@ const RootLayout = ({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Nav />
         <main>{children}</main>
-        <Footer />
       </body>
     </html>
   );

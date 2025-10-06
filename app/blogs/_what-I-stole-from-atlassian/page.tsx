@@ -2,7 +2,7 @@ import { NextPage } from "next";
 
 const Page: NextPage = () => {
   return (
-    <div>
+    <div className="max-w-3xl mx-auto px-4 py-8">
       <h1>What I Stole From Atlassian 🥷</h1>
       <p>
         There were a lot of Atlassian processes that as a more Junior developer
