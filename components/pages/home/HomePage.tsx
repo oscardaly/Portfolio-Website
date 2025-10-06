@@ -31,9 +31,10 @@ const HomePage: FC = () => {
                 Oscar Daly
               </h1>
               <p className="mt-8 text-lg font-medium text-pretty text-gray-500 sm:text-xl/8">
-                I&#39;m a software engineer with experience across many technologies
-                and processes. I love learning, working with others, and seeing
-                the impact products we create can have on users.
+                I&#39;m a software engineer with experience across many
+                technologies and processes. I love learning, working with
+                others, and seeing the impact products we create can have on
+                users.
               </p>
               <div className="mt-10 flex items-center justify-center gap-x-6">
                 <Link href="https://github.com/oscardaly" target="_blank">
