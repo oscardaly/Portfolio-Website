@@ -1,18 +1,15 @@
 "use client";
 
 import {
-  createElement,
   useEffect,
   useRef,
   useState,
   type CSSProperties,
-  type ElementType,
   type ReactNode,
 } from "react";
 
 interface RevealProps {
   children: ReactNode;
-  as?: ElementType;
   delay?: number;
   className?: string;
 }
@@ -23,11 +20,10 @@ interface RevealProps {
  */
 export const Reveal = ({
   children,
-  as: Tag = "div",
   delay = 0,
   className = "",
 }: RevealProps) => {
-  const ref = useRef<HTMLElement | null>(null);
+  const ref = useRef<HTMLDivElement>(null);
   const [shown, setShown] = useState(false);
 
   useEffect(() => {
@@ -46,13 +42,13 @@ export const Reveal = ({
     return () => io.disconnect();
   }, [shown]);
 
-  return createElement(
-    Tag,
-    {
-      ref,
-      className: `on-scroll ${shown ? "is-in" : ""} ${className}`,
-      style: { "--d": `${delay}s` } as CSSProperties,
-    },
-    children,
+  return (
+    <div
+      ref={ref}
+      className={`on-scroll ${shown ? "is-in" : ""} ${className}`}
+      style={{ "--d": `${delay}s` } as CSSProperties}
+    >
+      {children}
+    </div>
   );
 };

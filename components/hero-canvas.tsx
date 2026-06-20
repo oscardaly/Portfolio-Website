@@ -1,8 +1,10 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useRef } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import * as THREE from "three";
+
+import { useMounted, useReducedMotion } from "@/lib/hooks";
 
 const vertexShader = /* glsl */ `
   uniform float uTime;
@@ -121,13 +123,8 @@ function ParticleField({ animate }: { animate: boolean }) {
 }
 
 export default function HeroCanvas() {
-  const [mounted, setMounted] = useState(false);
-  const [animate, setAnimate] = useState(true);
-
-  useEffect(() => {
-    setAnimate(!window.matchMedia("(prefers-reduced-motion: reduce)").matches);
-    setMounted(true);
-  }, []);
+  const mounted = useMounted();
+  const animate = !useReducedMotion();
 
   if (!mounted) return null;
 

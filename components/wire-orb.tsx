@@ -4,6 +4,8 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 
+import { useReducedMotion } from "@/lib/hooks";
+
 const KNOT = { radius: 1.05, tube: 0.32, p: 2, q: 3 } as const;
 
 const vertexShader = /* glsl */ `
@@ -113,10 +115,9 @@ function Orb({ animate }: { animate: boolean }) {
 export default function WireOrb() {
   const holder = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(false);
-  const [animate, setAnimate] = useState(true);
+  const animate = !useReducedMotion();
 
   useEffect(() => {
-    setAnimate(!window.matchMedia("(prefers-reduced-motion: reduce)").matches);
     const el = holder.current;
     if (!el) return;
     const io = new IntersectionObserver(
