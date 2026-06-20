@@ -54,6 +54,16 @@ export const projects: Project[] = [
     status: "live",
   },
   {
+    slug: "Travel-Blog",
+    name: "Travel Blog",
+    year: "2026",
+    blurb:
+      "A photo-led travel journal with an interactive 3D globe of everywhere I've been — plus a widget that prices a weekend away in the month ahead, monetised through affiliate booking links.",
+    stack: ["Next.js", "React Three Fiber", "Vercel"],
+    href: "/projects/Travel-Blog",
+    status: "live",
+  },
+  {
     slug: "R3F-Galaxy",
     name: "R3F Galaxy",
     year: "2023",
