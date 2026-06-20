@@ -1,6 +1,16 @@
-interface BlogPost {
+export interface BlogSection {
+  heading?: string;
+  level?: 2 | 3;
+  paragraphs?: string[];
+  list?: string[];
+}
+
+export interface BlogPost {
   title: string;
-  content: string;
+  date: string;
+  readingTime: string;
+  lead: string;
+  sections: BlogSection[];
 }
 
 export const blogPosts: Map<string, BlogPost> = new Map<string, BlogPost>([
@@ -8,66 +18,169 @@ export const blogPosts: Map<string, BlogPost> = new Map<string, BlogPost>([
     "a-dummys-guide-to-leading-teams",
     {
       title: "A Dummy's Guide to Leading Teams",
-      content:
-        "I know what you’re thinking… and the answer is yes, an apprentice has just written a blogpost on leading teams… what a d***. This blog post is meant to be a quick review of the processes I’ve come across that I liked, their pros and cons and how I attempted to wrangle my academy team into doing them. As you can already tell, this will be an emotional journey, so buckle up. 💺\n\n" +
-        "Pull Requests 🔗\n\n" +
-        "PR’s are a valuable part of code quality assurance, a good way to train junior members of the team and give other team members insight into parts of the codebase they aren’t working on. But as with everything, it aint worth doing unless you’re doing it right…. The aim of the game is to keep code as clean as possible and we can do this by taking as much mental load from developers so they can focus on developing. One of the things that the Jira Bug Fixers and Platform 6 team found really difficult was flaky builds. We would put up a pr in an area we weren’t usually familiar with and would almost always find multiple builds failing. This made it very difficult to have confidence in our code or trust the pipelines that were there to help show us when our code had caused regressions. This meant basically re-running builds until they 🪄 magically passed sometimes… not good. However, fast forward a few months and we’re starting to work on the Atlassian Frontend repo where they keep components for reuse in their products. We put up a pr and are greeted by an array of different automations set up on the pr to speed the process up and make sure reviews were thorough. For example, the git history was used to find who had written code in the same area and automatically add them as a reviewer. Additionally, they had apps that would check your code for security concerns or code smells if it wasn’t written to a high enough standard which helped keep the code secure and clean. Or using Landkid to avoid issues with merging pull requests as it created a merge queue and rebased your branch on master automatically. Although not all was smooth sailing in the land of Atlassian Frontend pr automation, as every time it detected changes across multiple files, all of your reviews would be reset. This happened a lotttt and meant that it was very common to have to badger people for re-reviews. Although this was a good idea in theory, because the threshold was too small on how many changes needed a re-review, I feel like you could’ve been tempted to avoid answering any NIT comments so you didn’t have to badger people again for re-reviews.\n\n" +
-        "PR Templates 📑\n\n" +
-        "In our AI project something we used was PR templates and it was a pretty big win for me so something I wanted to take over to our academy project. Basically, when you go to put up a pr, there’s a template there for you to just fill out. This makes sure pr’s have enough detail in their description and that they’ve thought about everything they need before putting the pr up, for example, testing and security. One more thing for developers to not have to think about.\n\n" +
-        "\n\n" +
-        "Don’t leave designers out 😢\n\n" +
-        "Something I found that was slowing us down was having to set up meetings with the designers once or twice a week to run the product for them and let them check over our changes… boo designers! 👎 Only joking don’t worry! The real issue was that the designers were being left out on a crucial part of the development/review process and couldn’t easily incrementally critique our front-end changes. A lot of big words, but what does this mean and how do we actually fix it? Well, the idea was that we should have preview deploys running in our github prs and add the designers to these prs. This means that we didn’t have to run the product on each branch every time we wanted the designers to check our work, and it means they can ask for adjustments at the pr stage instead of a new ticket having to be created for lots of little design changes. Sounds great in practice, the only trouble with this is that deploying a preview on every pr can cost a lotta dolla. To fix this in the AI project we would only run the deploy preview workflow when we added a label and this seemed to work really well so you weren’t re-deploying every time you addressed a nit comment.\n\n" +
-        "\n\n" +
-        "Stop sending me messages Github 🚫\n\n" +
-        "Something a lot of teams do is have Github set up to automatically send in the link for a PR whenever the PR is opened and then also to send in a link whenever the PR is merged. Call me a bad person… but I rarely saw that message come in and open the pr and review immediately. Instead of context-switching and breaking my focus on the work I was doing on my ticket, I’d save time in the day to go and review these prs when I was taking a break from my ticket. As well as breaking focus, I found that these massive messages were clogging up the channel (because my teams were always so productive there were loads of them 💪) which meant that I was missing important messages! So how did we try to fix this? Well, we used Slack Reminders to have Slackbot send us a message twice a day, once before standup (9am) and once at the end of the day (4pm), with a link to our prs to remind us to take the time to put in reviews. These times were specifically chosen so we could start and end the day reviewing prs and didn’t have to jump back and forth between things and to allow the author of the pr to do a QA demo in standup/EOD to explain things. In fairness, I'm pretty sure Stroll has it set up that these messages are sent to a different channel which is a good idea to stop cluttering up your main team channel, but I’m also not sure if I would still ignore the messages and just set the time aside in my day. Maybe this is just a me problem though and it doesn’t make a difference!\n\n" +
-        "\n\n" +
-        "CI/CD 🚨\n\n" +
-        "There’s a lot of argument about what should go in your CI, how it should be ordered and what is actually of value and what isn’t. Well, below is what we used for our CI which would run every time someone pushed code…\n\n" +
-        "\n\n" +
-        "Tests ✅\n\n" +
-        "Hopefully not much explanation needed here, every time a dev pushed code it would run our entire test suite to make sure the changes hadn’t caused any errors somewhere unexpected.\n\n" +
-        "\n\n" +
-        "Linting 🧹\n\n" +
-        "For our linter, we used ESLint to make sure we kept good code patterns.\n\n" +
-        "\n\n" +
-        "Prettier 💅\n\n" +
-        "We used prettier to make sure our code stayed consistent across the team.\n\n" +
-        "\n\n" +
-        "Lighthouse CI 💡🏠\n\n" +
-        "We used Lighthouse CI in our Github workflow to review our pages and bring back a report with scores and recommendations on how to improve the pages' performance, accessibility, SEO, best practices and PWA. This was a really helpful tool that would pick up on little things you’d forget about, however, whenever the website was only being built the scores would be terrible as pages were only half complete. Furthermore, we decided to turn off the score assertions which would check if our website pages were a high enough score in each category and fail the build if they weren’t. Additionally, Lighthouse would take around 7 minutes to run on our 4 pages so to save Instil from paying massive money on Github build minutes we decided to only run this build when we attached a label to the pr. This meant that we would only run the build on frontend changes and after all comments had been resolved. Apparently, there is a much easier way to do this using a Lighthouse CI GitHub App, oops…\n\n" +
-        "\n\n" +
-        "Restrictions 🚦\n\n" +
-        "PR restrictions aren’t new to Instil, they’re used across teams in the company. The 2 types of restrictions that we decided to use were that prs could only be merged when; 2 or more people have approved the pr and when all the builds have passed. This was to make sure the code had been thoroughly checked and so that everyone was getting to see more of the codebase and learning from the other devs. On a team of 4, this definitely slowed things down slightly but with our set times to review prs, things were still getting merged within 1 day and I think for the learning this was a worthwhile tradeoff. There are a lot more pr restrictions we could have used but didn't, for example, we discussed adding CodeCov as a restriction but decided against it as even though we wanted code coverage to be high, we didn’t want to create tests which weren’t valuable just to get a metric higher. Another option was to use Snyk, a code security analysis tool which will find possible vulnerabilities in your code and leave a comment to highlight these in your pr. However, on the free package we only got 100 tests per month so decided against it.\n\n" +
-        "\n\n" +
-        "Teamwork = Dreamwork 🍻\n\n" +
-        "Pairing 👥\n\n" +
-        "The requirements for pair programming are minimal: two developers and a shared command line or code editor. With these basic ingredients in place, there are many ways to pair program, from the “Ping Pong Pattern” to much less structured forms, they all have two critical things in common: turn-taking and open communication. Pair programming is a great way to learn or be onboarded on a new project, developers learn domain knowledge from each other and general best practices. Therefore, fewer bugs get through to production as errors are caught as they're being typed, this level of continuous code reviews means code is more thought out. However, pair programming should be a programming out loud process, where the pair is verbally detailing what it is doing and this can be difficult. Additionally, the pair should be equally engaged otherwise it will be draining to stay focused. A couple of things to bear in mind when pairing: It’s a lot easier to burn out when pairing so make sure to set timers and take breaks. It’s not something that you can force your team to do. It’s highly social and interactive, so you should be able to detect pairs that may have problems with each other, such as clashing personalities. It’s easy for a senior dev to completely take over and leave the junior dev doing nothing, but this goes against the whole point of pairing, pairs need to have patience with each other.\n\n" +
-        "\n\n" +
-        "Ways of working doc 📄\n\n" +
-        "This doc is a set of guidelines that outline the processes, practices, and principles the team follows to achieve its goals efficiently and effectively. This document serves as a reference for team members to understand how work is organised, executed, and delivered within the team. These typically include: Development Process, Roles and Responsibilities, Communication Guidelines, Development Tools and Environments, Coding Standards and Best Practices, Testing and Quality Assurance, Continuous Integration/Continuous Deployment (CI/CD), Workflow and Collaboration, Feedback and Retrospectives, Security and Compliance, Onboarding and Training\n\n" +
-        "\n\n" +
-        "Leave me alone time 🏝\n\n" +
-        "This was something new to me but I’d seen it on one of those… “day in the life of a SE at TikTok in Chicago” videos on YouTube and I really liked the idea. As a team we mapped out times in our calendar for “dev time”, this is 2 x 2hr+ periods where we don’t put in meetings or anything to distract devs or make them context switch. It allowed everyone to spend this time uninterrupted and be much more productive in that time.\n\n" +
-        "\n\n" +
-        "Don’t leave me alone time 🥹\n\n" +
-        "Working as a team is key to the team being happy and successful. Therefore, we thought that 1 office day a week would be a good opportunity to get together and work as a team in person. There was no pressure for team members to come in as we didn’t want the team to feel guilty if they couldn't make it.\n\n" +
-        "\n\n" +
-        "Standup is for more than just tickets 🤝\n\n" +
-        "Similar to the office day once a week, standup is a good opportunity for the team to get to know each other, a team that can talk about their lives and have a laugh in standup is a team that will work well together. Don’t take it too seriously, for example, get someone to tell a joke every morning in standup - thanks Hannah McKee! And don’t cut standup off 10 minutes early to stop those conversations which will make your team work better together and be more collaborative. The Bose team only do standup twice a week which is something I really like but I also like the opportunity to catch up with the team every day since we otherwise don’t see each other when we’re remote.",
+      date: "2025",
+      readingTime: "12 min read",
+      lead: "I know what you’re thinking… and the answer is yes, an apprentice has just written a blogpost on leading teams. This is a quick review of the processes I’ve come across that I liked, their pros and cons, and how I attempted to wrangle my academy team into doing them. As you can already tell, this will be an emotional journey, so buckle up. 💺",
+      sections: [
+        {
+          heading: "Pull Requests 🔗",
+          paragraphs: [
+            "PR’s are a valuable part of code quality assurance, a good way to train junior members of the team and give other team members insight into parts of the codebase they aren’t working on. But as with everything, it aint worth doing unless you’re doing it right. The aim of the game is to keep code as clean as possible, and we can do this by taking as much mental load from developers so they can focus on developing.",
+            "One of the things that the Jira Bug Fixers and Platform 6 team found really difficult was flaky builds. We would put up a pr in an area we weren’t usually familiar with and would almost always find multiple builds failing. This made it very difficult to have confidence in our code or trust the pipelines that were there to help show us when our code had caused regressions. This meant basically re-running builds until they 🪄 magically passed sometimes… not good.",
+            "Fast forward a few months and we’re starting to work on the Atlassian Frontend repo where they keep components for reuse in their products. We put up a pr and are greeted by an array of automations set up to speed the process up and make sure reviews were thorough. The git history was used to find who had written code in the same area and automatically add them as a reviewer. They had apps that would check your code for security concerns or code smells, and used Landkid to avoid merge issues by creating a merge queue and rebasing your branch on master automatically.",
+            "Not all was smooth sailing in the land of Atlassian Frontend pr automation: every time it detected changes across multiple files, all of your reviews would be reset. This happened a lotttt and meant it was very common to have to badger people for re-reviews. A good idea in theory, but because the threshold was too small on how many changes needed a re-review, I feel like you could’ve been tempted to avoid answering NIT comments just so you didn’t have to badger people again.",
+          ],
+        },
+        {
+          heading: "PR Templates 📑",
+          paragraphs: [
+            "In our AI project we used PR templates, and it was a pretty big win — so something I wanted to take over to our academy project. When you go to put up a pr, there’s a template there for you to just fill out. This makes sure pr’s have enough detail in their description and that they’ve thought about everything they need beforehand, for example testing and security. One more thing for developers to not have to think about.",
+          ],
+        },
+        {
+          heading: "Don’t leave designers out 😢",
+          paragraphs: [
+            "Something that was slowing us down was having to set up meetings with the designers once or twice a week to run the product for them and let them check over our changes. The real issue was that designers were being left out of a crucial part of the review process and couldn’t easily, incrementally critique our front-end changes.",
+            "The idea was to run preview deploys in our GitHub prs and add the designers to them. That meant we didn’t have to run the product on each branch every time, and they could ask for adjustments at the pr stage instead of a new ticket being created for lots of little design changes. The only trouble is that deploying a preview on every pr can cost a lotta dolla — so in the AI project we only ran the deploy-preview workflow when we added a label, which worked really well.",
+          ],
+        },
+        {
+          heading: "Stop sending me messages, GitHub 🚫",
+          paragraphs: [
+            "A lot of teams have GitHub set up to automatically post a PR link whenever the PR is opened, and again when it’s merged. Call me a bad person, but I rarely saw that message and immediately went to review. Instead of context-switching and breaking focus on my own ticket, I’d set aside time in the day to review prs. Those massive messages were also clogging up the channel, which meant I was missing important messages!",
+            "How did we try to fix it? We used Slack Reminders to have Slackbot send us a message twice a day — once before standup (9am) and once at the end of the day (4pm) — with a link to our prs. These times were chosen so we could start and end the day reviewing, without jumping back and forth, and so the author could do a QA demo in standup. Stroll send these to a separate channel, which is a good idea to avoid cluttering the main team channel.",
+          ],
+        },
+        {
+          heading: "CI/CD 🚨",
+          paragraphs: [
+            "There’s a lot of argument about what should go in your CI, how it should be ordered, and what is actually of value. Here’s what we used, which ran every time someone pushed code.",
+          ],
+        },
+        {
+          heading: "Tests ✅",
+          level: 3,
+          paragraphs: [
+            "Hopefully not much explanation needed: every time a dev pushed code it ran our entire test suite to make sure the changes hadn’t caused errors somewhere unexpected.",
+          ],
+        },
+        {
+          heading: "Linting 🧹",
+          level: 3,
+          paragraphs: ["We used ESLint to keep good code patterns."],
+        },
+        {
+          heading: "Prettier 💅",
+          level: 3,
+          paragraphs: [
+            "We used Prettier to make sure our code stayed consistent across the team.",
+          ],
+        },
+        {
+          heading: "Lighthouse CI 💡",
+          level: 3,
+          paragraphs: [
+            "We used Lighthouse CI to review our pages and bring back a report with scores and recommendations for performance, accessibility, SEO, best practices and PWA. A really helpful tool that picks up on little things you forget about — although while a page was only half-built the scores were terrible, so we turned off the score assertions that would fail the build. Lighthouse took ~7 minutes across our 4 pages, so to save on GitHub build minutes we only ran it when we attached a label, after all comments were resolved. Apparently there’s a much easier way to do this with a Lighthouse CI GitHub App… oops.",
+          ],
+        },
+        {
+          heading: "Restrictions 🚦",
+          level: 3,
+          paragraphs: [
+            "We used two merge restrictions: prs could only be merged when 2 or more people had approved, and when all builds had passed. This made sure code was thoroughly checked and that everyone got to see more of the codebase. On a team of 4 this slowed things slightly, but with set review times things still merged within a day — a worthwhile trade for the learning. We discussed CodeCov but decided against gating on it, as we didn’t want to write low-value tests just to move a metric. We also considered Snyk, but the free tier only gave 100 tests a month.",
+          ],
+        },
+        {
+          heading: "Teamwork = Dreamwork 🍻",
+          paragraphs: [
+            "The requirements for pair programming are minimal: two developers and a shared editor. From the “Ping Pong Pattern” to much looser forms, they all share two things: turn-taking and open communication. Pairing is a great way to learn or be onboarded — developers share domain knowledge and best practices, and fewer bugs reach production because errors are caught as they’re typed.",
+            "A few things to bear in mind: it’s easier to burn out when pairing, so set timers and take breaks. It’s not something you can force. It’s highly social, so watch for pairs that clash. And it’s easy for a senior to take over and leave the junior doing nothing — which defeats the point. Pairs need patience with each other.",
+          ],
+        },
+        {
+          heading: "Ways of working doc 📄",
+          level: 3,
+          paragraphs: [
+            "A set of guidelines outlining the processes, practices and principles the team follows. It serves as a reference for how work is organised, executed and delivered — typically covering the development process, roles and responsibilities, communication, tools and environments, coding standards, testing and QA, CI/CD, collaboration, retrospectives, security and compliance, and onboarding.",
+          ],
+        },
+        {
+          heading: "Leave-me-alone time 🏝",
+          level: 3,
+          paragraphs: [
+            "I’d seen this on one of those “day in the life of an SE” videos and really liked it. As a team we mapped out two 2hr+ blocks of “dev time” where we don’t schedule meetings or anything that would make devs context switch. It let everyone spend that time uninterrupted and be much more productive.",
+          ],
+        },
+        {
+          heading: "Don’t-leave-me-alone time 🥹",
+          level: 3,
+          paragraphs: [
+            "Working as a team is key to a team being happy and successful, so one office day a week was a good chance to get together in person. There was no pressure to come in — we didn’t want anyone to feel guilty if they couldn’t make it.",
+          ],
+        },
+        {
+          heading: "Standup is for more than just tickets 🤝",
+          level: 3,
+          paragraphs: [
+            "Standup is a good opportunity for the team to get to know each other — a team that can talk about their lives and have a laugh in standup is a team that works well together. Don’t take it too seriously: get someone to tell a joke every morning (thanks Hannah McKee!), and don’t cut standup off 10 minutes early to kill the conversations that actually make your team more collaborative.",
+          ],
+        },
+      ],
     },
   ],
   [
     "what-I-stole-from-atlassian",
     {
-      title: "What I Stole from Atlassian",
-      content: "",
+      title: "What I Stole from Atlassian 🥷",
+      date: "2024",
+      readingTime: "6 min read",
+      lead: "There were a lot of Atlassian processes that, as a more junior developer, I appreciated and thought would be worth using again… so here’s a list of them.",
+      sections: [
+        {
+          heading: "QA Kickoff",
+          paragraphs: [
+            "A QA Kickoff is when a developer first picks up a ticket and wants to discuss their approach with the rest of the team. It’s a chance to talk through anything that could be a potential hurdle, how you might test it, and how you want to implement the change. The team can then offer constructive criticism and suggestions for things that might work better.",
+            "Atlassian guidance was that a ticket needs a QA Kickoff if you answer “yes” to any of: does this affect the app UI/UX? does this affect the data layer? might there be regressions? We were fairly lax about kickoffs, but they were encouraged and useful for gaining context in unfamiliar areas. For a junior dev who hasn’t seen a problem before, it’s a great way to steer them toward a good approach — and explain why it’s the best option — rather than just handing them instructions on a ticket.",
+          ],
+        },
+        {
+          heading: "QA Demo",
+          paragraphs: [
+            "After a feature is built, it gets demoed to the wider team before it goes up for pull request or merge. This helps catch anything missed from the agreed scope, and surfaces things that weren’t accounted for in the initial QA Kickoff.",
+          ],
+        },
+        {
+          heading: "Still in the notebook",
+          paragraphs: [
+            "There are a few more I’m still writing up — Continuous Retro, Quality Cards, PR Automations and Pair Programming. More on each of these soon.",
+          ],
+        },
+      ],
     },
   ],
   [
     "culture-as-a-service",
     {
       title: "Culture as a Service (CAAS)",
-      content: "",
+      date: "2024",
+      readingTime: "5 min read",
+      lead: "On Thursday the 26th I was invited to speak on the panel of the first-ever NI Chamber of Commerce Future Workforce Summit in Titanic Belfast. There were some really interesting talks throughout the morning — the notes below aren’t my own opinions, just things worth extracting value from.",
+      sections: [
+        {
+          heading: "Notes from the floor",
+          list: [
+            "Change culture from the top — “leading by example by leaving loudly.” Leadership needs to openly use the benefits and flexibility a company offers, because it shows employees they don’t need to feel bad for doing the same.",
+            "Remote-first isn’t just for parents — it also means hiring from a much larger, more diverse group of people, for example those with a disability or who are older.",
+            "Alchemy grew to 160 people in 5 years and put it down to mentoring and a flat structure — giving employees a mentor only ~1 year ahead of them helped retain staff and let them grow fast.",
+            "Too much competition — structure the organisation so employees collaborate rather than compete for the next promotion. Supportive, collaborative teams are where the most growth comes from.",
+            "We can’t grow if we don’t know what’s wrong — we’re too nice in 1-to-1s because mentors aren’t trained on how to give negative feedback. Train mentors to give it, and employees to take it and grow.",
+            "Higher retention from being open about salary — one company found that posting salaries, so everyone knows they’re paid the same, led to a big increase in retention.",
+            "People don’t leave jobs for more money — research shows most people leave because the work doesn’t feel like it has purpose. How do we make people feel their project matters?",
+            "Mentoring training for any leaders — a recurring theme was people celebrating mentorship programmes for their leaders: “it has totally transformed our retention rate.”",
+            "We can’t just train on technical skills — no organisation works with people who are all technically brilliant but have no soft skills. Training needs to cover soft skills, not just technical ones.",
+          ],
+        },
+      ],
     },
   ],
 ]);

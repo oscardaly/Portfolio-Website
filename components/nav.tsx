@@ -2,45 +2,62 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { ArrowUpRight } from "lucide-react";
 
-import { navLinks } from "@/config";
+import { navLinks, contactHref } from "@/config";
 
 export const Nav = () => {
-  const setActiveLink = (href: string, pathname: string) => {
-    if (
-      pathname === href ||
-      (pathname.split("/")[1] === "blog" && href === "/blog")
-    ) {
-      return "text-blue-500";
-    }
-    return "text-zinc-100";
-  };
   const pathname = usePathname();
 
+  const isActive = (href: string) => {
+    if (href === "/") return pathname === "/";
+    const section = href.replace("/#", "/");
+    return section !== "/" && pathname.startsWith(section);
+  };
+
   return (
-    <aside className="px-10 tracking-tight pt-8" aria-label="Main Navigation">
-      <nav className="flex flex-row items-center justify-between">
-        <Link href="/" aria-label="Home">
-          <p className="mb-1 text-2xl" aria-hidden="true">
-            &#120148;
-          </p>
-        </Link>
-        <ul className="flex flex-wrap justify-center gap-x-6 gap-y-1 text-md text-neutral-800 dark:text-neutral-200">
-          {navLinks.map((link: { href: string; text: string }) => {
-            return (
-              <li key={link.text}>
-                <Link
-                  className={`${setActiveLink(link.href, pathname)} transition duration-300 hover:text-blue-500 dark:hover:text-blue-600`}
-                  href={link.href}
-                  aria-current={pathname === link.href ? "page" : undefined}
-                >
-                  {link.text}
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
-      </nav>
-    </aside>
+    <header className="sticky top-0 z-50">
+      <div className="border-b border-line bg-paper/70 backdrop-blur-xl">
+        <nav
+          aria-label="Primary"
+          className="mx-auto flex max-w-6xl items-center px-5 py-3.5 sm:px-8"
+        >
+          <ul className="hidden items-center gap-1 sm:flex">
+            {navLinks.slice(1).map((link) => {
+              const active = isActive(link.href);
+              return (
+                <li key={link.text}>
+                  <Link
+                    href={link.href}
+                    className={`group relative px-3 py-1.5 text-[0.9rem] transition-colors duration-300 ${
+                      active ? "text-ink" : "text-ink-soft hover:text-ink"
+                    }`}
+                  >
+                    {link.text}
+                    <span
+                      className={`absolute inset-x-3 -bottom-px h-px origin-left bg-accent transition-transform duration-300 ${
+                        active
+                          ? "scale-x-100"
+                          : "scale-x-0 group-hover:scale-x-100"
+                      }`}
+                    />
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+
+          <Link
+            href={contactHref}
+            target="_blank"
+            rel="noreferrer"
+            className="btn btn-ghost ml-auto !px-4 !py-1.5 !text-[0.85rem]"
+          >
+            Get in touch
+            <ArrowUpRight className="h-3.5 w-3.5" />
+          </Link>
+        </nav>
+      </div>
+    </header>
   );
 };

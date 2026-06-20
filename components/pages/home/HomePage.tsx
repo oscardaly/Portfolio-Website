@@ -1,177 +1,393 @@
 import { FC } from "react";
 import Link from "next/link";
-import { Button } from "../../button";
-import { Github, Linkedin } from "lucide-react";
+import {
+  ArrowRight,
+  ArrowUpRight,
+  Github,
+  Linkedin,
+  type LucideIcon,
+} from "lucide-react";
+
+import { site, socials, projects, writing, talks, contactHref } from "@/config";
+import { Reveal } from "@/components/reveal";
+import HeroCanvas from "@/components/hero-canvas";
+import WireOrb from "@/components/wire-orb";
+
+const SOCIAL_ICONS: Record<string, LucideIcon> = {
+  GitHub: Github,
+  LinkedIn: Linkedin,
+};
+
+const capabilities = [
+  "AI Engineering",
+  "RAG & LLMs",
+  "Vector Search",
+  "Full-stack",
+  "AWS · SST",
+];
 
 const HomePage: FC = () => {
+  const featured = projects[0];
+  const rest = projects.slice(1);
+
   return (
-    <section>
-      <div className="bg-white">
-        <div className="relative isolate px-6 lg:px-8">
-          <div
-            aria-hidden="true"
-            className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
-          >
+    <div>
+      {/* ===================== HERO ===================== */}
+      <section className="relative isolate flex min-h-[90vh] items-center overflow-hidden">
+        <div className="absolute inset-0 -z-10">
+          <HeroCanvas />
+        </div>
+        <div
+          className="pointer-events-none absolute inset-0 -z-10"
+          style={{
+            background:
+              "linear-gradient(to bottom, oklch(0.158 0.018 264 / 0.55) 0%, transparent 32%, transparent 50%, oklch(0.158 0.018 264 / 0.85) 80%, var(--color-paper) 96%)",
+          }}
+        />
+
+        <div className="mx-auto w-full max-w-6xl px-5 py-24 sm:px-8">
+          <div className="max-w-3xl">
             <div
-              style={{
-                clipPath:
-                  "polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)",
-              }}
-              className="relative left-[calc(50%-11rem)] aspect-1155/678 w-144.5 -translate-x-1/2 rotate-30 bg-linear-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-30rem)] sm:w-288.75"
-            />
-          </div>
-          <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
-            <div className="hidden sm:mb-8 sm:flex sm:justify-center">
-              <div className="relative rounded-full px-3 py-1 text-sm/6 text-gray-600 ring-1 ring-gray-900/10 hover:ring-gray-900/20">
-                Full Stack Developer
+              className="reveal chip"
+              style={{ "--d": "0s" } as React.CSSProperties}
+            >
+              <span className="pulse-dot" />
+              Available for new work · {site.location}
+            </div>
+
+            <h1 className="mt-7 display text-[clamp(3rem,9.5vw,7.5rem)] text-ink">
+              <span
+                className="reveal-wipe block"
+                style={{ "--d": "0.12s" } as React.CSSProperties}
+              >
+                Oscar
+              </span>
+              <span
+                className="reveal-wipe block text-gradient"
+                style={{ "--d": "0.24s" } as React.CSSProperties}
+              >
+                Daly.
+              </span>
+            </h1>
+
+            <p
+              className="reveal mt-7 max-w-2xl text-xl leading-relaxed text-ink-soft sm:text-2xl"
+              style={{ "--d": "0.4s" } as React.CSSProperties}
+            >
+              Full-stack software engineer building{" "}
+              <span className="font-medium text-ink">AI-powered products</span>{" "}
+              —{" "}
+              <span className="font-medium text-ink">
+                RAG &amp; semantic search
+              </span>
+              , LLM apps and the{" "}
+              <span className="font-medium text-ink">cloud infrastructure</span>{" "}
+              to run them — end to end.
+            </p>
+
+            <div
+              className="reveal mt-9 flex flex-wrap items-center gap-3"
+              style={{ "--d": "0.52s" } as React.CSSProperties}
+            >
+              <Link href="#work" className="btn btn-primary">
+                View work
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+              <Link
+                href={contactHref}
+                target="_blank"
+                rel="noreferrer"
+                className="btn btn-ghost"
+              >
+                Get in touch
+                <ArrowUpRight className="h-4 w-4" />
+              </Link>
+              <div className="ml-1 flex gap-2">
+                {socials.map((s) => {
+                  const Icon = SOCIAL_ICONS[s.label] ?? ArrowUpRight;
+                  return (
+                    <Link
+                      key={s.label}
+                      href={s.href}
+                      target="_blank"
+                      rel="noreferrer"
+                      aria-label={s.label}
+                      className="btn btn-ghost !px-3"
+                    >
+                      <Icon className="h-4 w-4" />
+                    </Link>
+                  );
+                })}
               </div>
             </div>
-            <div className="text-center">
-              <h1 className="text-5xl font-semibold tracking-tight text-balance text-gray-900 sm:text-7xl">
-                Oscar Daly
-              </h1>
-              <p className="mt-8 text-lg font-medium text-pretty text-gray-500 sm:text-xl/8">
-                I&#39;m a software engineer with experience across many
-                technologies and processes. I love learning, working with
-                others, and seeing the impact products we create can have on
-                users.
-              </p>
-              <div className="mt-10 flex items-center justify-center gap-x-6">
-                <Link href="https://github.com/oscardaly" target="_blank">
-                  <Button variant="outline">
-                    <Github className="h-4 w-4" />
-                    <p>GitHub</p>
-                  </Button>
-                </Link>
-                <Link href="https://linkedin.com/in/oscar-daly" target="_blank">
-                  <Button variant="outline">
-                    <Linkedin className="h-4 w-4" />
-                    <p>LinkedIn</p>
-                  </Button>
-                </Link>
-              </div>
-            </div>
-          </div>
-          <div
-            aria-hidden="true"
-            className="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]"
-          >
+
             <div
-              style={{
-                clipPath:
-                  "polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)",
-              }}
-              className="relative left-[calc(50%+3rem)] aspect-1155/678 w-144.5 -translate-x-1/2 bg-linear-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%+36rem)] sm:w-288.75"
-            />
-          </div>
-          <div>
-            <h1 className="scroll-m-20 text-center text-4xl font-extrabold tracking-tight text-balance">
-              Projects
-            </h1>
-            <ul className="my-6 ml-6 list-disc [&>li]:mt-2">
-              <li>
-                <Button variant="link">
-                  <Link href="/projects/R3F-Galaxy" className="button">
-                    R3F Galaxy
-                  </Link>
-                </Button>
-              </li>
-              <li>
-                <Button variant="link">
-                  <Link href="/projects/PartnerForGood" className="button">
-                    Partner For Good
-                  </Link>
-                </Button>
-              </li>
-              <li>
-                <Button variant="link">
-                  <Link href="/projects/Portfolio" className="button">
-                    Portfolio
-                  </Link>
-                </Button>
-              </li>
-              <li>
-                <p>Events Manager</p>
-              </li>
-            </ul>
-          </div>
-
-          <div className="space-x-4 flex flex-col">
-            <h1 className="scroll-m-20 text-center text-4xl font-extrabold tracking-tight text-balance">
-              Blogs
-            </h1>
-            <ul className="my-6 ml-6 list-disc [&>li]:mt-2">
-              <li>
-                <Button variant="link">
-                  <Link
-                    href="/blogs/a-dummys-guide-to-leading-teams"
-                    className="button"
-                  >
-                    A dummy&#39;s guide to leading teams.
-                  </Link>
-                </Button>
-              </li>
-              <li>
-                <Button variant="link">
-                  <Link
-                    href="/blogs/what-I-stole-from-atlassian"
-                    className="button"
-                  >
-                    What I stole from Atlassian.
-                  </Link>
-                </Button>
-              </li>
-              <li>
-                <Button variant="link">
-                  <Link href="/blogs/culture-as-a-service" className="button">
-                    Culture as a Service (CAAS).
-                  </Link>
-                </Button>
-              </li>
-              <li>
-                <p>
-                  Reducing flakiness within your Playwright E2E test suite.
-                  (Coming Soon)
-                </p>
-              </li>
-              <li>
-                <p>
-                  Building a chatbot with GCP - DialogFlow vs VertexAI. (Coming
-                  Soon)
-                </p>
-              </li>
-            </ul>
-          </div>
-
-          <div className="space-x-4 flex flex-col">
-            <h1 className="scroll-m-20 text-center text-4xl font-extrabold tracking-tight text-balance">
-              Conferences...
-            </h1>
-            <p>More info coming soon!</p>
-            <ul>
-              <li>
-                <p>
-                  AI & TinyML: Solving LEDC Food Insecurity - NI Dev Conf 2024
-                </p>
-              </li>
-              <li>
-                <p>
-                  Building Interactive 3D Web Apps with React Three Fiber - NI
-                  Dev Conf 2023
-                </p>
-              </li>
-              <li>
-                <p>Replacing Google Images with AI - InstilConf 2024</p>
-              </li>
-              <li>
-                <p>Pair Programming Effectively - SISTEM Conference 2023</p>
-              </li>
-            </ul>
+              className="reveal mt-12 flex flex-wrap gap-2"
+              style={{ "--d": "0.64s" } as React.CSSProperties}
+            >
+              {capabilities.map((c) => (
+                <span key={c} className="chip">
+                  {c}
+                </span>
+              ))}
+            </div>
           </div>
         </div>
+      </section>
+
+      <div className="mx-auto max-w-6xl px-5 sm:px-8">
+        {/* ===================== WORK — featured + bento ===================== */}
+        <Section
+          id="work"
+          eyebrow="01 — Selected Work"
+          title="Things I've shipped"
+          lead="A few projects that show how I think — from generative graphics to production cloud systems."
+        >
+          {/* Featured */}
+          <Reveal>
+            <Link
+              href={featured.href ?? "#"}
+              className="card group block overflow-hidden"
+            >
+              <div className="grid lg:grid-cols-2">
+                <div className="flex flex-col p-8 sm:p-10">
+                  <div className="flex items-center gap-3">
+                    <span className="chip border-accent/30 !text-accent-deep">
+                      Featured
+                    </span>
+                    <span className="mono text-xs text-ink-faint">
+                      {featured.year}
+                    </span>
+                  </div>
+                  <h3 className="display mt-6 text-3xl text-ink transition-colors duration-300 group-hover:text-accent-deep sm:text-4xl">
+                    {featured.name}
+                  </h3>
+                  <p className="mt-4 max-w-md leading-relaxed text-ink-soft">
+                    {featured.blurb}
+                  </p>
+                  <div className="mt-6 flex flex-wrap gap-1.5">
+                    {featured.stack.map((t) => (
+                      <span
+                        key={t}
+                        className="rounded-md border border-line bg-paper/40 px-2 py-0.5 mono text-[0.62rem] uppercase tracking-[0.1em] text-ink-faint"
+                      >
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+                  <div className="mt-8 flex items-center gap-1.5 text-sm font-medium text-accent-deep">
+                    View case study
+                    <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  </div>
+                </div>
+
+                {/* decorative panel */}
+                <div className="relative min-h-[240px] overflow-hidden border-t border-line bg-paper/40 lg:border-l lg:border-t-0">
+                  <div
+                    className="absolute inset-0"
+                    style={{
+                      background:
+                        "radial-gradient(80% 80% at 70% 30%, var(--color-accent-glow), transparent 60%), radial-gradient(70% 70% at 20% 90%, oklch(0.62 0.2 292 / 0.22), transparent 60%)",
+                    }}
+                  />
+                  <div
+                    className="absolute inset-0 opacity-[0.18]"
+                    style={{
+                      backgroundImage:
+                        "linear-gradient(var(--color-line) 1px, transparent 1px), linear-gradient(90deg, var(--color-line) 1px, transparent 1px)",
+                      backgroundSize: "32px 32px",
+                    }}
+                  />
+                  <span className="num-outline absolute -right-4 top-1/2 -translate-y-1/2 text-[7rem] leading-none sm:text-[9rem]">
+                    {featured.year}
+                  </span>
+                  <div className="absolute bottom-6 left-6 flex items-center gap-2">
+                    <span className="pulse-dot" />
+                    <span className="mono text-[0.66rem] uppercase tracking-[0.18em] text-ink-soft">
+                      {featured.status === "live"
+                        ? "Live in production"
+                        : "In build"}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </Link>
+          </Reveal>
+
+          {/* Remaining — compact 3-up */}
+          <div className="mt-5 grid gap-5 sm:grid-cols-3">
+            {rest.map((p, i) => (
+              <Reveal key={p.slug} delay={i * 0.06}>
+                <Link
+                  href={p.href ?? "#"}
+                  className="card group flex h-full flex-col p-6"
+                >
+                  <div className="flex items-center justify-between">
+                    <span className="folio">{`0${i + 2}`}</span>
+                    <span className="flex items-center gap-2 mono text-xs text-ink-faint">
+                      {p.status === "wip" && (
+                        <span className="rounded-full border border-accent-2/40 px-2 py-0.5 text-[0.6rem] uppercase tracking-[0.15em] text-accent-deep">
+                          WIP
+                        </span>
+                      )}
+                      {p.year}
+                    </span>
+                  </div>
+                  <h3 className="display mt-4 text-xl text-ink transition-colors duration-300 group-hover:text-accent-deep">
+                    {p.name}
+                  </h3>
+                  <p className="mt-2 flex-1 text-[0.92rem] leading-relaxed text-ink-faint">
+                    {p.blurb}
+                  </p>
+                  <div className="mt-5 flex items-center gap-1.5 text-[0.82rem] font-medium text-accent-deep">
+                    Case study
+                    <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  </div>
+                </Link>
+              </Reveal>
+            ))}
+          </div>
+        </Section>
+
+        {/* ===================== WRITING — editorial timeline ===================== */}
+        <Section
+          id="writing"
+          eyebrow="02 — Field Notes"
+          title="Writing on building & leading"
+          lead="Notes on the processes, tools and team rituals I've found worth keeping."
+        >
+          <Reveal className="relative">
+            {/* spine */}
+            <div
+              aria-hidden
+              className="absolute bottom-3 left-[1.55rem] top-3 w-px bg-line sm:left-[2.4rem]"
+            />
+            <ol>
+              {writing.map((post, i) => {
+                const inner = (
+                  <div className="group grid grid-cols-[auto_1fr] items-baseline gap-5 rounded-xl px-2 py-5 transition-colors duration-300 hover:bg-paper-2/40 sm:gap-8">
+                    <div className="relative flex w-9 justify-center sm:w-16">
+                      <span className="num-outline text-3xl sm:text-5xl">
+                        {i + 1}
+                      </span>
+                    </div>
+                    <div className="min-w-0 border-b border-line pb-5">
+                      <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+                        <h3
+                          className={`display text-xl text-ink sm:text-2xl ${
+                            post.comingSoon
+                              ? ""
+                              : "transition-colors duration-300 group-hover:text-accent-deep"
+                          }`}
+                        >
+                          {post.title}
+                          {post.comingSoon && (
+                            <span className="ml-2.5 align-middle mono text-[0.56rem] uppercase tracking-[0.18em] text-ink-faint">
+                              Soon
+                            </span>
+                          )}
+                        </h3>
+                        <span className="flex items-center gap-3 mono text-[0.72rem] uppercase tracking-[0.12em] text-ink-faint">
+                          {post.date} · {post.readingTime}
+                          {!post.comingSoon && (
+                            <ArrowUpRight className="h-4 w-4 text-accent transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                          )}
+                        </span>
+                      </div>
+                      <p className="mt-2 max-w-2xl text-[0.95rem] leading-snug text-ink-soft">
+                        {post.blurb}
+                      </p>
+                    </div>
+                  </div>
+                );
+                return (
+                  <li
+                    key={post.slug}
+                    className={post.comingSoon ? "opacity-55" : ""}
+                  >
+                    {post.comingSoon ? (
+                      inner
+                    ) : (
+                      <Link href={`/blogs/${post.slug}`}>{inner}</Link>
+                    )}
+                  </li>
+                );
+              })}
+            </ol>
+          </Reveal>
+        </Section>
+
+        {/* ===================== TALKS — split with 3D orb ===================== */}
+        <Section
+          id="talks"
+          eyebrow="03 — On Stage"
+          title="Conference talks"
+          lead="Sharing what I've learned with the local dev community and beyond."
+        >
+          <div className="grid items-center gap-10 lg:grid-cols-[1.25fr_1fr]">
+            <Reveal>
+              <ol>
+                {talks.map((talk, i) => (
+                  <li
+                    key={`${talk.title}-${i}`}
+                    className="group flex items-center gap-5 border-t border-line py-5 last:border-b"
+                  >
+                    <span className="folio w-7 shrink-0">{`0${i + 1}`}</span>
+                    <div className="min-w-0 flex-1">
+                      <h3 className="display text-lg text-ink transition-colors duration-300 group-hover:text-accent-deep sm:text-2xl">
+                        {talk.title}
+                      </h3>
+                      <div className="mt-2 flex items-center gap-3">
+                        <span className="chip !py-0.5 !text-[0.58rem] !text-accent-deep">
+                          {talk.venue}
+                        </span>
+                        <span className="mono text-xs text-ink-faint">
+                          {talk.year}
+                        </span>
+                      </div>
+                    </div>
+                  </li>
+                ))}
+              </ol>
+            </Reveal>
+
+            <Reveal
+              delay={0.1}
+              className="relative order-first mx-auto aspect-square w-full max-w-sm lg:order-last"
+            >
+              <div
+                aria-hidden
+                className="absolute inset-[12%] rounded-full"
+                style={{
+                  background:
+                    "radial-gradient(circle, var(--color-accent-glow), transparent 68%)",
+                }}
+              />
+              <WireOrb />
+            </Reveal>
+          </div>
+        </Section>
       </div>
-    </section>
+    </div>
   );
 };
+
+/* ---- shared section wrapper ---- */
+const Section: FC<{
+  id: string;
+  eyebrow: string;
+  title: string;
+  lead: string;
+  children: React.ReactNode;
+}> = ({ id, eyebrow, title, lead, children }) => (
+  <section id={id} className="scroll-mt-24 py-16 sm:py-24">
+    <Reveal className="mb-10 max-w-2xl">
+      <p className="kicker kicker--accent">{eyebrow}</p>
+      <h2 className="display mt-4 text-4xl text-ink sm:text-5xl">{title}</h2>
+      <p className="mt-4 text-lg leading-relaxed text-ink-soft">{lead}</p>
+    </Reveal>
+    {children}
+  </section>
+);
 
 export default HomePage;
