@@ -83,16 +83,6 @@ export const projects: Project[] = [
     href: "/projects/Portfolio",
     status: "live",
   },
-  {
-    slug: "Events-Manager",
-    name: "Events Manager",
-    year: "2024",
-    blurb:
-      "A tool for planning, scheduling and tracking events. Currently being rebuilt — a fuller write-up is on the way.",
-    stack: ["TypeScript", "React"],
-    href: "/projects/Events-Manager",
-    status: "wip",
-  },
 ];
 
 export interface WritingEntry {
