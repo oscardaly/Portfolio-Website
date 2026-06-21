@@ -96,6 +96,14 @@ export interface WritingEntry {
 
 export const writing: WritingEntry[] = [
   {
+    slug: "getting-the-most-out-of-claude-code",
+    title: "Getting the Most Out of Claude Code",
+    date: "2025",
+    readingTime: "10 min",
+    blurb:
+      "The Claude Code tips that actually changed how I work — git worktrees, plan mode, a hard-working CLAUDE.md, custom skills, and giving Claude a feedback loop. Distilled from the Anthropic team.",
+  },
+  {
     slug: "an-ai-driven-sdlc",
     title: "Rebuilding the SDLC Around AI",
     date: "2025",

@@ -15,6 +15,130 @@ export interface BlogPost {
 
 export const blogPosts: Map<string, BlogPost> = new Map<string, BlogPost>([
   [
+    "getting-the-most-out-of-claude-code",
+    {
+      title: "Getting the Most Out of Claude Code ⚡",
+      date: "2025",
+      readingTime: "10 min read",
+      lead: "I’ve basically been living inside Claude Code for a while now, and the Anthropic team recently shared a pile of tips on how they actually use it day to day. A lot of them genuinely changed how I work — so here are the ones worth knowing, distilled, with a bit of my own colour. Grab a coffee, this is a chunky one. ☕",
+      sections: [
+        {
+          heading: "Parallel workflows with git worktrees 🌳",
+          paragraphs: [
+            "The team’s pick for the single biggest productivity unlock — and I’m inclined to agree. Instead of one Claude session, spin up three to five git worktrees at once, each running its own Claude in parallel (git worktree add ../project-feature-a feature-a, and away you go).",
+            "A few patterns keep it sane: keep one dedicated worktree on main that’s read-only — purely for reading logs, running queries and analysis, never for writing code. Wire up shell aliases (za, zb, zc) so you can hop between worktrees in a single keystroke. And colour-code your terminal tabs so you don’t accidentally commit feature A’s work onto feature B. Native worktree support is built into the Claude desktop app now too.",
+          ],
+        },
+        {
+          heading: "Plan mode first 🗺️",
+          paragraphs: [
+            "Start every complex task in plan mode — Shift+Tab twice. Pour your energy into the plan so Claude can one-shot the implementation, then flip to auto-accept edits to build. The hour you spend on a solid plan saves you three on a bad one.",
+          ],
+          list: [
+            "Two-Claude review — have one Claude write the plan, then spin up a second to review it as a staff engineer.",
+            "Re-plan when stuck — the moment something goes sideways, drop back into plan mode. Don’t just keep pushing.",
+            "Plan for verification — explicitly ask Claude to plan the verification steps, not only the build.",
+          ],
+        },
+        {
+          heading: "Invest in your CLAUDE.md 🧠",
+          paragraphs: [
+            "Your CLAUDE.md is Claude’s long-term memory, so make it earn its keep. The killer habit: after every correction, end with “update your CLAUDE.md so you don’t make that mistake again.” It’s remarkably good at writing rules for itself.",
+            "Ruthlessly edit it over time until the mistake rate measurably drops. Check it into git so the whole team shares one and contributes multiple times a week. And keep a notes directory that Claude maintains per task or project, updated after every PR. Mine has sections for code style, common mistakes to avoid, and project-specific context that just points at ./notes/.",
+          ],
+        },
+        {
+          heading: "Create custom skills and commands 🛠️",
+          paragraphs: [
+            "Rule of thumb: if you do something more than once a day, turn it into a skill or command. Skills live in .claude/skills/<name>/SKILL.md — a name and description up top, the instructions underneath. The description is the bit that matters; it’s the activation signal.",
+            "Ideas the team actually use: a /techdebt skill to run at the end of a session and hunt down duplicated or dead code; /sync-context to pull the last 7 days of Slack, GDrive, Asana and GitHub into one dump; /commit-push-pr to commit, push and open a PR in one go; and analytics agents that write dbt models, review code and test changes.",
+            "There’s also an open ecosystem at skills.sh — npx skills add <owner/repo> installs community skills in one command, and they work across Claude Code, Cursor, Copilot, Windsurf and more. Worth a browse: Vercel’s React best practices, Anthropic’s frontend-design, and obra’s systematic-debugging and git-worktrees skills. (I used the frontend-design one on a project recently — it’s good.)",
+          ],
+        },
+        {
+          heading: "Let Claude fix bugs 🐛",
+          paragraphs: [
+            "Claude fixes most bugs by itself if you let it. Enable the Slack MCP, paste a bug thread, and just say “fix” — zero context switching. For CI, say “go fix the failing CI tests” and don’t micromanage how. And it’s shockingly capable at distributed-systems debugging: pipe your docker logs straight into it and ask what’s going wrong.",
+          ],
+        },
+        {
+          heading: "Level up your prompting 💬",
+          paragraphs: [
+            "A handful of prompts that punch well above their weight:",
+          ],
+          list: [
+            "Make Claude the reviewer — “grill me on these changes and don’t make a PR until I pass your test.”",
+            "Demand proof — “prove to me this works,” and have it diff behaviour between main and your feature branch.",
+            "Chase elegance — after a mediocre fix, “knowing everything you know now, scrap this and implement the elegant solution.”",
+            "Reduce ambiguity — write detailed specs before handing work off. The more specific you are, the better the output.",
+          ],
+        },
+        {
+          heading: "Terminal & environment setup ⌨️",
+          paragraphs: [
+            "The team likes Ghostty for its synchronised rendering, 24-bit colour and proper unicode. Use /statusline to keep context usage, your git branch and the current model on screen at all times. Colour-code and name your terminal tabs to match your worktrees, and lean on tmux — one tab per task.",
+            "The sleeper hit, though, is voice dictation (double-tap fn on macOS). You speak roughly 3x faster than you type, and the happy side effect is that your prompts come out far more detailed.",
+          ],
+        },
+        {
+          heading: "Use subagents 🧩",
+          paragraphs: [
+            "Append “use subagents” to any request where you want Claude to throw more compute at the problem. They keep your main context clean by offloading individual tasks, and let you explore several approaches in parallel. You can even route permission requests through a hook to Opus and have it scan for attacks and auto-approve the safe ones.",
+          ],
+        },
+        {
+          heading: "Data & analytics 📊",
+          paragraphs: [
+            "Point Claude Code at a database CLI — like bq for BigQuery — and let it pull and analyse metrics on the fly: “query BigQuery for daily active users over the last 30 days and visualise the trend.” Check a database skill into the repo so the whole team queries straight from Claude Code; it works for anything with a CLI, MCP or API. Boris Cherny reckons he hasn’t written a line of SQL in 6+ months.",
+          ],
+        },
+        {
+          heading: "Learning with Claude 📚",
+          paragraphs: [
+            "Flip on the Explanatory or Learning output style in /config and Claude explains the why behind its changes. It also makes surprisingly good visual HTML presentations of unfamiliar code and decent ASCII diagrams of new protocols and codebases. You can even build a spaced-repetition skill: you explain your understanding, Claude probes the gaps with follow-ups, then stores the result for later review.",
+          ],
+        },
+        {
+          heading: "Code review 👀",
+          paragraphs: [
+            "Use the Claude Code GitHub Action to auto-review every PR — code quality, potential bugs, security and performance. Tag @claude in PR comments to ask specific questions or raise concerns, and tag it on teammates’ PRs to fold the learnings back into CLAUDE.md as part of the review.",
+          ],
+        },
+        {
+          heading: "Model selection 🎯",
+          paragraphs: [
+            "The team’s blunt advice: use Opus 4.5 with thinking for basically everything. Yes, it’s bigger and slower than Sonnet — but you steer it less and it’s better at tool use, so it almost always finishes faster overall. Keep Sonnet for quick questions and simple edits.",
+          ],
+        },
+        {
+          heading: "Team collaboration 🤝",
+          paragraphs: [
+            "Most of this comes down to: share the config. Check your CLAUDE.md into git and have the whole team contributing multiple times a week — any time you catch Claude doing something wrong, add it. Do the same with your .mcp.json so everyone gets the same MCP servers (Slack and friends) out of the box.",
+          ],
+        },
+        {
+          heading: "Verification & quality ✅",
+          paragraphs: [
+            "This is the big one. Probably the most important single thing for great results is giving Claude a way to verify its own work — open a browser and test the UI, run the test suite, execute bash to check behaviour. With that feedback loop, the quality of the final result jumps two to three times. Back it up with a PostToolUse hook that auto-formats every Write and Edit (e.g. bun run format) so you’re never cleaning up after it.",
+          ],
+        },
+        {
+          heading: "Long-running tasks ⏳",
+          paragraphs: [
+            "For the marathon jobs: have Claude verify its work with a background agent when it finishes, use an Agent Stop hook to make that verification more deterministic, and lean on monitoring plugins for the really long-haul stuff.",
+          ],
+        },
+        {
+          heading: "The thread running through all of it 🧵",
+          paragraphs: [
+            "Do the thinking up front (plan mode, detailed specs), give Claude a feedback loop so it can check itself, and capture every lesson back into your CLAUDE.md and skills so the whole system compounds. That’s the difference between treating Claude Code as fancy autocomplete and treating it as a teammate.",
+            "If you want to go deeper: the official docs cover skills, hooks, terminal config and memory; skills.sh and awesome-claude are great for community skills and tooling. 🚀",
+          ],
+        },
+      ],
+    },
+  ],
+  [
     "an-ai-driven-sdlc",
     {
       title: "Rebuilding the SDLC Around AI 🤖",
