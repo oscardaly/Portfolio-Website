@@ -11,7 +11,7 @@ const R3FGalaxy = () => {
         { label: "Stack", value: "R3F · WebGL · GLSL" },
       ]}
       links={[
-        { label: "Live Demo", href: "https://r3f-galaxy.vercel.app/" },
+        { label: "Live Demo", href: "https://galaxy.oscardaly.tech" },
         { label: "GitHub", href: "https://github.com/oscardaly/R3F-Galaxy" },
         {
           label: "Walkthrough (PDF)",
