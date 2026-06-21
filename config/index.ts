@@ -96,6 +96,14 @@ export interface WritingEntry {
 
 export const writing: WritingEntry[] = [
   {
+    slug: "an-ai-driven-sdlc",
+    title: "Rebuilding the SDLC Around AI",
+    date: "2025",
+    readingTime: "7 min",
+    blurb:
+      "Reshaping the software lifecycle around one shared context and a fleet of Claude skills — the engineering principles, the human-led product pipeline and the autonomous engineering loop.",
+  },
+  {
     slug: "a-dummys-guide-to-leading-teams",
     title: "A Dummy's Guide to Leading Teams",
     date: "2025",
