@@ -40,6 +40,7 @@ export interface Project {
   stack: string[];
   href?: string; // internal case-study route
   status?: "live" | "wip";
+  image?: string; // bento preview screenshot (in /public)
 }
 
 export const projects: Project[] = [
@@ -62,6 +63,7 @@ export const projects: Project[] = [
     stack: ["Next.js", "React Three Fiber", "Vercel"],
     href: "/projects/Travel-Blog",
     status: "live",
+    image: "/travel-blog.png",
   },
   {
     slug: "R3F-Galaxy",
@@ -72,6 +74,7 @@ export const projects: Project[] = [
     stack: ["React Three Fiber", "WebGL", "GLSL"],
     href: "/projects/R3F-Galaxy",
     status: "live",
+    image: "/r3f-galaxy.png",
   },
   {
     slug: "Portfolio",

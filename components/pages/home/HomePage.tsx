@@ -1,5 +1,6 @@
 import { FC } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import {
   ArrowRight,
   ArrowUpRight,
@@ -27,8 +28,8 @@ const capabilities = [
 ];
 
 const HomePage: FC = () => {
-  const featured = projects[0];
-  const rest = projects.slice(1);
+  const featured = projects.find((p) => p.slug === "Travel-Blog") ?? projects[0];
+  const rest = projects.filter((p) => p !== featured);
 
   return (
     <div>
@@ -63,10 +64,10 @@ const HomePage: FC = () => {
                 Oscar
               </span>
               <span
-                className="reveal-wipe block text-gradient"
+                className="reveal-wipe block"
                 style={{ "--d": "0.24s" } as React.CSSProperties}
               >
-                Daly.
+                <span className="text-gradient">Daly.</span>
               </span>
             </h1>
 
@@ -181,26 +182,48 @@ const HomePage: FC = () => {
                   </div>
                 </div>
 
-                {/* decorative panel */}
+                {/* preview / decorative panel */}
                 <div className="relative min-h-[240px] overflow-hidden border-t border-line bg-paper/40 lg:border-l lg:border-t-0">
-                  <div
-                    className="absolute inset-0"
-                    style={{
-                      background:
-                        "radial-gradient(80% 80% at 70% 30%, var(--color-accent-glow), transparent 60%), radial-gradient(70% 70% at 20% 90%, oklch(0.62 0.2 292 / 0.22), transparent 60%)",
-                    }}
-                  />
-                  <div
-                    className="absolute inset-0 opacity-[0.18]"
-                    style={{
-                      backgroundImage:
-                        "linear-gradient(var(--color-line) 1px, transparent 1px), linear-gradient(90deg, var(--color-line) 1px, transparent 1px)",
-                      backgroundSize: "32px 32px",
-                    }}
-                  />
-                  <span className="num-outline absolute -right-4 top-1/2 -translate-y-1/2 text-[7rem] leading-none sm:text-[9rem]">
-                    {featured.year}
-                  </span>
+                  {featured.image ? (
+                    <>
+                      <Image
+                        src={featured.image}
+                        alt={`${featured.name} preview`}
+                        fill
+                        sizes="(min-width: 1024px) 50vw, 100vw"
+                        className="object-cover object-top"
+                        priority
+                      />
+                      <div
+                        className="absolute inset-0"
+                        style={{
+                          background:
+                            "linear-gradient(to top, oklch(0.158 0.018 264 / 0.9), transparent 55%)",
+                        }}
+                      />
+                    </>
+                  ) : (
+                    <>
+                      <div
+                        className="absolute inset-0"
+                        style={{
+                          background:
+                            "radial-gradient(80% 80% at 70% 30%, var(--color-accent-glow), transparent 60%), radial-gradient(70% 70% at 20% 90%, oklch(0.62 0.2 292 / 0.22), transparent 60%)",
+                        }}
+                      />
+                      <div
+                        className="absolute inset-0 opacity-[0.18]"
+                        style={{
+                          backgroundImage:
+                            "linear-gradient(var(--color-line) 1px, transparent 1px), linear-gradient(90deg, var(--color-line) 1px, transparent 1px)",
+                          backgroundSize: "32px 32px",
+                        }}
+                      />
+                      <span className="num-outline absolute -right-4 top-1/2 -translate-y-1/2 text-[7rem] leading-none sm:text-[9rem]">
+                        {featured.year}
+                      </span>
+                    </>
+                  )}
                   <div className="absolute bottom-6 left-6 flex items-center gap-2">
                     <span className="pulse-dot" />
                     <span className="mono text-[0.66rem] uppercase tracking-[0.18em] text-ink-soft">
@@ -220,8 +243,19 @@ const HomePage: FC = () => {
               <Reveal key={p.slug} delay={i * 0.06}>
                 <Link
                   href={p.href ?? "#"}
-                  className="card group flex h-full flex-col p-6"
+                  className="card group flex h-full flex-col overflow-hidden p-6"
                 >
+                  {p.image && (
+                    <div className="relative -mx-6 -mt-6 mb-5 aspect-[16/10] overflow-hidden border-b border-line">
+                      <Image
+                        src={p.image}
+                        alt={`${p.name} preview`}
+                        fill
+                        sizes="(min-width: 640px) 33vw, 100vw"
+                        className="object-cover"
+                      />
+                    </div>
+                  )}
                   <div className="flex items-center justify-between">
                     <span className="folio">{`0${i + 2}`}</span>
                     <span className="flex items-center gap-2 mono text-xs text-ink-faint">
