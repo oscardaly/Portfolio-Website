@@ -28,7 +28,8 @@ const capabilities = [
 ];
 
 const HomePage: FC = () => {
-  const featured = projects.find((p) => p.slug === "Travel-Blog") ?? projects[0];
+  const featured =
+    projects.find((p) => p.slug === "Travel-Blog") ?? projects[0];
   const rest = projects.filter((p) => p !== featured);
 
   return (

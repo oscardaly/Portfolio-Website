@@ -33,7 +33,14 @@ export default function OpengraphImage() {
         >
           {site.role}
         </div>
-        <div style={{ fontSize: 120, fontWeight: 700, marginTop: 16, lineHeight: 1 }}>
+        <div
+          style={{
+            fontSize: 120,
+            fontWeight: 700,
+            marginTop: 16,
+            lineHeight: 1,
+          }}
+        >
           {site.name}
         </div>
         <div
@@ -45,8 +52,8 @@ export default function OpengraphImage() {
             lineHeight: 1.35,
           }}
         >
-          AI-powered products end to end — RAG, semantic search and LLM apps, plus
-          the cloud to ship them.
+          AI-powered products end to end — RAG, semantic search and LLM apps,
+          plus the cloud to ship them.
         </div>
         <div style={{ fontSize: 26, color: "#6b7694", marginTop: "auto" }}>
           oscardaly.tech
