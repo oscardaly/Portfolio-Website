@@ -55,6 +55,26 @@ export const projects: Project[] = [
     status: "live",
   },
   {
+    slug: "Sous",
+    name: "Sous",
+    year: "2026",
+    blurb:
+      "A recipe platform with an AI sous-chef that plans your week around your tastes, allergies and nutrition targets and builds the shopping list — a Turborepo monorepo with an ElysiaJS API, BetterAuth + Stripe subscriptions and an MCP server, shipped on Vercel.",
+    stack: ["Next.js", "ElysiaJS", "AI SDK", "Stripe"],
+    href: "/projects/Sous",
+    status: "live",
+  },
+  {
+    slug: "PR-Review-Agent",
+    name: "Leo — PR Review Agent",
+    year: "2026",
+    blurb:
+      "An agentic PR reviewer built on LangGraph — reviews style, architecture and security (OWASP plus the LLM Top 10) against a RAG knowledge base, redacts secrets before any model sees the diff, cites official docs, teaches instead of gating, and opens a PR against its own knowledge base when told it's wrong.",
+    stack: ["LangGraph", "LangChain", "RAG", "LangSmith"],
+    href: "/projects/PR-Review-Agent",
+    status: "live",
+  },
+  {
     slug: "Travel-Blog",
     name: "Travel Blog",
     year: "2026",
