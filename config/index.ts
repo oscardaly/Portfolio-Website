@@ -63,6 +63,17 @@ export const projects: Project[] = [
     stack: ["Next.js", "ElysiaJS", "AI SDK", "Stripe"],
     href: "/projects/Sous",
     status: "live",
+    image: "/sous.webp",
+  },
+  {
+    slug: "Bank-Balance-Widget",
+    name: "Bank Balance Widget",
+    year: "2026",
+    blurb:
+      "A native iOS home-screen widget that shows your true spendable balance — Starling account balances minus this month's unbilled card spend. SwiftUI + WidgetKit, with an App-Group cache so the widget renders offline and the token never leaves the app.",
+    stack: ["Swift", "SwiftUI", "WidgetKit", "Open Banking"],
+    href: "/projects/Bank-Balance-Widget",
+    status: "live",
   },
   {
     slug: "PR-Review-Agent",

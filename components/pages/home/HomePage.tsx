@@ -54,7 +54,7 @@ const HomePage: FC = () => {
               style={{ "--d": "0s" } as React.CSSProperties}
             >
               <span className="pulse-dot" />
-              Available for new work · {site.location}
+              Agent Engineer - Focused.io · {site.location}
             </div>
 
             <h1 className="mt-7 display text-[clamp(3rem,9.5vw,7.5rem)] text-ink">
