@@ -41,10 +41,10 @@ const TravelBlog = () => {
       </p>
       <p>
         Source photos live in Vercel Blob storage and are referenced by absolute
-        URL, with the allowed hosts pinned in <code>remotePatterns</code> so the
-        image optimiser will serve them. That keeps the repository light &mdash;
-        no binary assets committed &mdash; while still letting Next.js do the
-        heavy lifting on delivery.
+        URL, with the allowed hosts pinned in <code>remotePatterns</code>
+        &nbsp;so the image optimiser will serve them. That keeps the repository
+        light &mdash; no binary assets committed &mdash; while still letting
+        Next.js do the heavy lifting on delivery.
       </p>
 
       <h2>An interactive 3D globe</h2>
@@ -68,19 +68,19 @@ const TravelBlog = () => {
       <p>
         Rather than stand up a CMS on day one, the content lives as typed
         TypeScript consts validated against a small Zod-backed model: a{" "}
-        <code>Place</code> per city, each owning its highlights, restaurants,
-        bars and things to do. It is the pragmatic choice for a site only I edit
-        &mdash; full type-safety, no database to run, no network on the hot path
-        &mdash; and it let me build the whole front end before committing to any
-        particular backend.
+        <code>Place</code>&nbsp;per city, each owning its highlights,
+        restaurants, bars and things to do. It is the pragmatic choice for a
+        site only I edit &mdash; full type-safety, no database to run, no
+        network on the hot path &mdash; and it let me build the whole front end
+        before committing to any particular backend.
       </p>
       <p>
         The important detail is the seam. Every component reads content through
-        a single <code>queries</code> module, and the content model deliberately
-        mirrors the schema of a headless CMS. When the writing volume justifies
-        it, that one data-access layer can be swapped to fetch from the CMS
-        without touching a single component &mdash; the architecture is
-        CMS-ready without paying the cost of one yet.
+        a single <code>queries</code>&nbsp;module, and the content model
+        deliberately mirrors the schema of a headless CMS. When the writing
+        volume justifies it, that one data-access layer can be swapped to fetch
+        from the CMS without touching a single component &mdash; the
+        architecture is CMS-ready without paying the cost of one yet.
       </p>
 
       <h2>Pricing a weekend away</h2>
