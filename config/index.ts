@@ -94,7 +94,7 @@ export const projects: Project[] = [
     stack: ["Next.js", "React Three Fiber", "Vercel"],
     href: "/projects/Travel-Blog",
     status: "live",
-    image: "/travel-blog.png",
+    image: "/travel-blog.webp",
   },
   {
     slug: "R3F-Galaxy",
