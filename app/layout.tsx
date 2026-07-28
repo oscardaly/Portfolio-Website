@@ -35,7 +35,6 @@ export const metadata: Metadata = {
     "React",
     "London",
   ],
-  alternates: { canonical: site.url },
   openGraph: {
     type: "website",
     locale: "en_GB",
